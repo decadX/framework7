@@ -7,7 +7,7 @@
  *
  * Released under the MIT License
  *
- * Released on: July 29, 2019
+ * Released on: August 20, 2019
  */
 
 (function (global, factory) {
@@ -11278,7 +11278,7 @@
     if (html && typeof html === 'string') {
       html = html.trim();
       self.$vnode = vdom(html, self, app, true);
-      self.el = doc.createElement('div');
+      self.el = doc.createElement(self.$vnode.sel || 'div');
       patch(self.el, self.$vnode);
     } else if (html) {
       self.el = html;
@@ -13117,6 +13117,9 @@
       }
 
       if (!$el || !$el.hasClass('modal-in')) {
+        if (dialogsQueue.indexOf(modal) >= 0) {
+          dialogsQueue.splice(dialogsQueue.indexOf(modal), 1);
+        }
         return modal;
       }
 

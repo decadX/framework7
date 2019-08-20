@@ -1,4 +1,4 @@
-// IMPORT_LIBRARY
+import Vue from 'vue';
 // IMPORT_COMPONENTS
 /* eslint no-underscore-dangle: "off" */
 import componentsRouter from './components-router';
@@ -15,7 +15,7 @@ const Plugin = {
     f7.Framework7 = Framework7;
     f7.events = new Framework7.Events();
 
-    const Extend = EXTEND; // eslint-disable-line
+    const Extend = params.Vue || Vue; // eslint-disable-line
 
     // REGISTER_COMPONENTS
 
@@ -66,7 +66,7 @@ const Plugin = {
 
         let route;
         // eslint-disable-next-line
-        if (COMPILER === 'vue') {
+        if ('vue' === 'vue') {
           if (self.$vnode && self.$vnode.data && self.$vnode.data.props && self.$vnode.data.props.f7route) {
             route = self.$vnode.data.props.f7route;
           }
@@ -92,7 +92,7 @@ const Plugin = {
 
         let router;
         // eslint-disable-next-line
-        if (COMPILER === 'vue') {
+        if ('vue' === 'vue') {
           if (self.$vnode && self.$vnode.data && self.$vnode.data.props && self.$vnode.data.props.f7route) {
             router = self.$vnode.data.props.f7router;
           }

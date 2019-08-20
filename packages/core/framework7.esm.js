@@ -7,7 +7,7 @@
  *
  * Released under the MIT License
  *
- * Released on: July 29, 2019
+ * Released on: August 20, 2019
  */
 
 import Template7 from 'template7';
@@ -48,6 +48,7 @@ import TouchRipple from './components/touch-ripple/touch-ripple';
 import Modal from './components/modal/modal';
 import Router from './modules/router/router-class';
 
+//IMPORT_COMPONENTS
 
 if ("es" !== 'es') {
   if (typeof window !== 'undefined') {
@@ -85,7 +86,8 @@ Framework7.use([
   Subnavbar,
   TouchRipple,
   Modal,
-  ]);
+  //INSTALL_COMPONENTS
+]);
 
 export { Template7, $ as Dom7, Request, Utils, Device, Support };
 export default Framework7;
