@@ -54,7 +54,7 @@
     }
   },
   "dependencies": {
-    "dom7": "^2.1.3",
+    "dom7": "git+https://github.com/decadX/dom7.git",
     "path-to-regexp": "^3.0.0",
     "ssr-window": "^1.0.1",
     "template7": "^1.4.2"

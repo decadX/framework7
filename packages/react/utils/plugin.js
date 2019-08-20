@@ -1,4 +1,5 @@
 import React from 'react';
+// IMPORT_COMPONENTS
 /* eslint no-underscore-dangle: "off" */
 import componentsRouter from './components-router';
 import f7 from './f7';
@@ -16,7 +17,8 @@ const Plugin = {
 
     const Extend = params.React ? params.React.Component : React.Component; // eslint-disable-line
 
-    
+    // REGISTER_COMPONENTS
+
     // Define protos
     Object.defineProperty(Extend.prototype, '$f7', {
       get() {
