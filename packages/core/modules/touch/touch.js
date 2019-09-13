@@ -697,9 +697,9 @@ function initTouch() {
   document.addEventListener('click', appClick, true);
 
   if (Support.passiveListener) {
-    document.addEventListener(app.touchEvents.start, appTouchStartActive, activeListener);
-    document.addEventListener(app.touchEvents.move, appTouchMoveActive, activeListener);
-    document.addEventListener(app.touchEvents.end, appTouchEndActive, activeListener);
+    // document.addEventListener(app.touchEvents.start, appTouchStartActive, activeListener);
+    // document.addEventListener(app.touchEvents.move, appTouchMoveActive, activeListener);
+    // document.addEventListener(app.touchEvents.end, appTouchEndActive, activeListener);
 
     document.addEventListener(app.touchEvents.start, appTouchStartPassive, passiveListener);
     document.addEventListener(app.touchEvents.move, appTouchMovePassive, passiveListener);

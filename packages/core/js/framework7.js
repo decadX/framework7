@@ -7,11 +7,7 @@
  *
  * Released under the MIT License
  *
-<<<<<<< HEAD
- * Released on: August 20, 2019
-=======
- * Released on: August 21, 2019
->>>>>>> upstream/master
+ * Released on: September 13, 2019
  */
 
 (function (global, factory) {
@@ -5104,14 +5100,13 @@
     }
 
     var passiveListener = Support.passiveListener ? { passive: true } : false;
-    var activeListener = Support.passiveListener ? { passive: false } : false;
 
     doc.addEventListener('click', appClick, true);
 
     if (Support.passiveListener) {
-      doc.addEventListener(app.touchEvents.start, appTouchStartActive, activeListener);
-      doc.addEventListener(app.touchEvents.move, appTouchMoveActive, activeListener);
-      doc.addEventListener(app.touchEvents.end, appTouchEndActive, activeListener);
+      //document.addEventListener(app.touchEvents.start, appTouchStartActive, activeListener);
+      //document.addEventListener(app.touchEvents.move, appTouchMoveActive, activeListener);
+      //document.addEventListener(app.touchEvents.end, appTouchEndActive, activeListener);
 
       doc.addEventListener(app.touchEvents.start, appTouchStartPassive, passiveListener);
       doc.addEventListener(app.touchEvents.move, appTouchMovePassive, passiveListener);
@@ -11438,17 +11433,20 @@
     } else if (componentString.indexOf('<style scoped>') >= 0) {
       styleScoped = true;
       style = componentString.split('<style scoped>')[1].split('</style>')[0];
-      style = style.split('\n').map(function (line) {
-        var trimmedLine = line.trim();
-        if (trimmedLine.indexOf('@') === 0) { return line; }
-        if (line.indexOf('{') >= 0) {
-          if (line.indexOf('{{this}}') >= 0) {
-            return line.replace('{{this}}', ("[data-f7-" + id + "]"));
-          }
-          return ("[data-f7-" + id + "] " + (line.trim()));
-        }
-        return line;
-      }).join('\n');
+      style = style
+        .replace(/{{this}}/g, ("[data-f7-" + id + "]"))
+        .replace(/[\n]?([^{^}]*){/ig, function (string, rules) {
+          // eslint-disable-next-line
+          rules = rules
+            .split(',')
+            .map(function (rule) {
+              if (rule.indexOf(("[data-f7-" + id + "]")) >= 0) { return rule; }
+              return ("[data-f7-" + id + "] " + (rule.trim()));
+            })
+            .join(', ');
+
+          return ("\n" + rules + " {");
+        });
     }
 
     // Parse Script
