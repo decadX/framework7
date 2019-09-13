@@ -1,5 +1,5 @@
 /**
- * Framework7 4.4.10
+ * Framework7 4.5.0
  * Full featured mobile HTML framework for building iOS & Android apps
  * http://framework7.io/
  *
@@ -7,7 +7,11 @@
  *
  * Released under the MIT License
  *
+<<<<<<< HEAD
  * Released on: August 20, 2019
+=======
+ * Released on: August 21, 2019
+>>>>>>> upstream/master
  */
 
 (function (global, factory) {
@@ -14283,6 +14287,8 @@
       var targetHeight;
       var targetOffsetLeft;
       var targetOffsetTop;
+      var safeAreaTop = parseInt($('html').css('--f7-safe-area-top'), 10);
+      if (Number.isNaN(safeAreaTop)) { safeAreaTop = 0; }
       if ($targetEl && $targetEl.length > 0) {
         targetWidth = $targetEl.outerWidth();
         targetHeight = $targetEl.outerHeight();
@@ -14313,7 +14319,7 @@
           // On bottom
           position = 'bottom';
           top = targetOffsetTop + targetHeight;
-        } else if (height < targetOffsetTop) {
+        } else if (height < targetOffsetTop - safeAreaTop) {
           // On top
           top = targetOffsetTop - height;
           position = 'top';
@@ -14341,7 +14347,7 @@
         $el.addClass(("popover-on-" + position + " popover-on-" + hPosition));
       } else {
         // ios and aurora
-        if ((height + angleSize) < targetOffsetTop) {
+        if ((height + angleSize) < targetOffsetTop - safeAreaTop) {
           // On top
           top = targetOffsetTop - height - angleSize;
         } else if ((height + angleSize) < app.height - targetOffsetTop - targetHeight) {
@@ -22151,6 +22157,15 @@
     SmartSelect.prototype.open = function open (type) {
       var ss = this;
       if (ss.opened) { return ss; }
+      var prevented = false;
+      function prevent() {
+        prevented = true;
+      }
+      if (ss.$el) {
+        ss.$el.trigger('smartselect:beforeopen', { prevent: prevent });
+      }
+      ss.emit('local::beforeOpen smartSelectBeforeOpen', ss, prevent);
+      if (prevented) { return ss; }
       var openIn = type || ss.params.openIn;
       ss[("open" + (openIn.split('').map(function (el, index) {
         if (index === 0) { return el.toUpperCase(); }
